@@ -18,6 +18,11 @@ export const getCities = async () => {
   return res.json()
 }
 
+export const getCityWalkers = async () => {
+  const res = await fetch("/api/cityWalkers");
+  return res.json()
+}
+
 export const postDog = async (newDog) => {
   const res = await fetch("/api/dogs", {
     method: "POST",

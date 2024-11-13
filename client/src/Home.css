@@ -1,18 +1,49 @@
 .dog-list {
     list-style: none;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Home.css */
 
 .dog-list-item {
+    display: flex;
     cursor: pointer;        /* Makes the mouse pointer appear */
     padding: 10px;
     border: 1px solid #ccc;
-    margin-bottom: 5px;
+    margin-bottom: 25px;
   }
   
   .dog-list-item:hover {
     background-color: blue; /* Changes background color on hover */
     color: white;           /* Optional: changes text color to make it readable */
   }
+
+/* Main container for each dog item and delete button */
+.dog-item-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Aligns items to the center vertically */
+    gap: 10px;           /* Space between the list item and button */
+}
+
+/* Styling the delete button */
+.delete-btn {
+    padding: 2px 5px;          /* Smaller padding for a compact button */
+    font-size: 10px;           /* Smaller font size */
+    background-color: #ddd;    /* Neutral background */
+    color: #333;               /* Dark text color */
+    border: none;              /* Remove default border */
+    border-radius: 4px;        /* Rounded corners */
+    cursor: pointer;           /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition */
+    margin: 0;                 /* Ensures no extra margin */
+    height: auto;              /* Ensures button height fits content */
+}
+
+.delete-btn:hover {
+    background-color: #ff4d4d; /* Red background on hover */
+    color: white;              /* White text on hover */
+}
+
   

@@ -102,7 +102,7 @@ export default function Home() {
       <div className="dog-list">
         {allDogs.map((d) => {
           return (
-            <div key={d.id}>
+            <div key={d.id} className="dog-item-button-container">
               <li
                 className="dog-list-item"
                 key={d.id}
@@ -110,7 +110,12 @@ export default function Home() {
               >
                 {d.name}
               </li>
-              <button onClick={() => handleDeleteDog(d.id)}>DELETE</button>
+              <button
+                className="delete-btn"
+                onClick={() => handleDeleteDog(d.id)}
+              >
+                DELETE
+              </button>
             </div>
           );
         })}
