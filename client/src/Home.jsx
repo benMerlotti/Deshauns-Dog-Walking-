@@ -1,4 +1,5 @@
 import {
+  deleteDog,
   getCities,
   getDogs,
   getGreeting,
@@ -89,19 +90,28 @@ export default function Home() {
     }
   };
 
+  const handleDeleteDog = async (id) => {
+    await deleteDog(id);
+    const updatedDogs = await getDogs();
+    setAllDogs(updatedDogs);
+  };
+
   return (
     <div>
       <p>{greeting.message}</p>
       <div className="dog-list">
         {allDogs.map((d) => {
           return (
-            <li
-              className="dog-list-item"
-              key={d.id}
-              onClick={() => viewDogDetails(d)}
-            >
-              {d.name}
-            </li>
+            <div key={d.id}>
+              <li
+                className="dog-list-item"
+                key={d.id}
+                onClick={() => viewDogDetails(d)}
+              >
+                {d.name}
+              </li>
+              <button onClick={() => handleDeleteDog(d.id)}>DELETE</button>
+            </div>
           );
         })}
       </div>

@@ -120,4 +120,14 @@ app.MapPost("/api/dogs", (Dog dog) =>
     });
 });
 
+app.MapDelete("/api/dogs/{id}", (int id) =>
+{
+    Dog dog = dogs.FirstOrDefault(d => d.Id == id);
+
+    dogs.Remove(dog);
+
+    return Results.NoContent();
+
+});
+
 app.Run();

@@ -28,3 +28,9 @@ export const postDog = async (newDog) => {
   })
   return res.json()
 }
+
+export const deleteDog = async (id) => {
+  const res = await fetch(`/api/dogs/${id}`, {
+    method: "DELETE"
+  })
+}
