@@ -30,6 +30,20 @@ List<Dog> dogs = new List<Dog>
     new Dog { Id = 10, Name = "Sadie", WalkerId = 5, CityId = 5 }
 };
 
+List<CityWalker> cityWalkers = new List<CityWalker>
+{
+    new CityWalker { Id = 1, WalkerId = 1, CityId = 1 },
+    new CityWalker { Id = 2, WalkerId = 2, CityId = 1 },
+    new CityWalker { Id = 3, WalkerId = 1, CityId = 2 },
+    new CityWalker { Id = 4, WalkerId = 3, CityId = 2 },
+    new CityWalker { Id = 5, WalkerId = 2, CityId = 3 },
+    new CityWalker { Id = 6, WalkerId = 4, CityId = 3 },
+    new CityWalker { Id = 7, WalkerId = 3, CityId = 4 },
+    new CityWalker { Id = 8, WalkerId = 5, CityId = 4 },
+    new CityWalker { Id = 9, WalkerId = 4, CityId = 5 },
+    new CityWalker { Id = 10, WalkerId = 5, CityId = 5 }
+};
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -59,6 +73,34 @@ app.MapGet("/api/dogs", () =>
     {
         Id = d.Id,
         Name = d.Name,
+        WalkerId = d.WalkerId,
+        CityId = d.CityId
+    });
+});
+
+app.MapGet("/api/walkers", () =>
+{
+    return walkers.Select(d => new WalkerDTO
+    {
+        Id = d.Id,
+        Name = d.Name
+    });
+});
+
+app.MapGet("/api/cities", () =>
+{
+    return cities.Select(d => new CityDTO
+    {
+        Id = d.Id,
+        Name = d.Name
+    });
+});
+
+app.MapGet("/api/cityWalkers", () =>
+{
+    return cityWalkers.Select(d => new CityWalkerDTO
+    {
+        Id = d.Id,
         WalkerId = d.WalkerId,
         CityId = d.CityId
     });
