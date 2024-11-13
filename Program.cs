@@ -106,4 +106,18 @@ app.MapGet("/api/cityWalkers", () =>
     });
 });
 
+app.MapPost("/api/dogs", (Dog dog) =>
+{
+    dog.Id = dogs.Count > 0 ? dogs.Max(d => d.Id) + 1 : 1;
+    dogs.Add(dog);
+
+    return Results.Created($"/api/dogs/{dog.Id}", new DogDTO
+    {
+        Id = dog.Id,
+        Name = dog.Name,
+        WalkerId = dog.WalkerId,
+        CityId = dog.CityId
+    });
+});
+
 app.Run();

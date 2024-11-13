@@ -1,4 +1,10 @@
-import { getCities, getDogs, getGreeting, getWalkers } from "./apiManager";
+import {
+  getCities,
+  getDogs,
+  getGreeting,
+  getWalkers,
+  postDog,
+} from "./apiManager";
 import { useEffect, useState } from "react";
 import "./Home.css";
 
@@ -11,6 +17,8 @@ export default function Home() {
   const [allWalkers, setAllWalkers] = useState([]);
   const [allCities, setAllCities] = useState([]);
   const [selectedDogDetails, setSelectedDogDetails] = useState(null);
+  const [newDogName, setNewDogName] = useState("");
+  const [userAddedDog, setUserAddedDog] = useState(false);
 
   useEffect(() => {
     getWalkers()
@@ -54,6 +62,33 @@ export default function Home() {
     });
   };
 
+  const userAddsDog = () => {
+    setUserAddedDog(true);
+  };
+
+  const handleDogNameInputChange = (e) => {
+    setNewDogName(e.target.value);
+  };
+
+  const postNewDog = async () => {
+    const newDog = {
+      name: newDogName,
+      walkerId: null,
+      cityId: null,
+    };
+
+    try {
+      const addedDog = await postDog(newDog);
+      if (addedDog) {
+        setAllDogs([...allDogs, addedDog]); // Add the new dog to the state
+        setUserAddedDog(false); // Hide input form
+        setNewDogName(""); // Clear input fields
+      }
+    } catch (error) {
+      console.error("Error adding dog:", error);
+    }
+  };
+
   return (
     <div>
       <p>{greeting.message}</p>
@@ -70,6 +105,22 @@ export default function Home() {
           );
         })}
       </div>
+      <div className="add-dog-container">
+        <button onClick={() => userAddsDog()}>Add New Dog</button>
+      </div>
+      {userAddedDog && (
+        <div className="add-dog-container">
+          <p>
+            Dog Name:
+            <input
+              type="text"
+              value={newDogName}
+              onChange={handleDogNameInputChange}
+            ></input>
+          </p>
+          <button onClick={() => postNewDog()}>Submit</button>
+        </div>
+      )}
       {selectedDogDetails && (
         <div className="dog-details">
           <h2>Dog Details</h2>
