@@ -130,4 +130,14 @@ app.MapDelete("/api/dogs/{id}", (int id) =>
 
 });
 
+app.MapDelete("/api/walkers/{id}", (int id) =>
+{
+    Walker walker = walkers.FirstOrDefault(w => w.Id == id);
+
+    walkers.Remove(walker);
+
+    return Results.NoContent();
+
+});
+
 app.Run();

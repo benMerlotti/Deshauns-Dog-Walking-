@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { getCities, getCityWalkers, getWalkers } from "./apiManager";
+import {
+  deleteWalker,
+  getCities,
+  getCityWalkers,
+  getWalkers,
+} from "./apiManager";
 
 export const Walkers = () => {
   const [allWalkers, setAllWalkers] = useState([]);
@@ -41,6 +46,15 @@ export const Walkers = () => {
     }
   };
 
+  const handleDeleteWalker = (id) => {
+    deleteWalker(id).then(
+      getWalkers().then((data) => {
+        setFilteredWalkers(data);
+        setAllWalkers(data);
+      })
+    );
+  };
+
   return (
     <div>
       <div>
@@ -57,7 +71,12 @@ export const Walkers = () => {
       </div>
       <div>
         {filteredWalkers.map((w) => {
-          return <li key={w.id}>{`${w.name}`}</li>;
+          return (
+            <div key={w.id}>
+              <li>{`${w.name}`}</li>
+              <button onClick={() => handleDeleteWalker(w.id)}>DELETE</button>
+            </div>
+          );
         })}
       </div>
     </div>
