@@ -120,6 +120,18 @@ app.MapPost("/api/dogs", (Dog dog) =>
     });
 });
 
+app.MapPost("/api/cities", (City city) =>
+{
+    city.Id = cities.Count > 0 ? cities.Max(c => c.Id) + 1 : 1;
+    cities.Add(city);
+
+    return Results.Created($"/api/cities/{city.Id}", new CityDTO
+    {
+        Id = city.Id,
+        Name = city.Name,
+    });
+});
+
 app.MapDelete("/api/dogs/{id}", (int id) =>
 {
     Dog dog = dogs.FirstOrDefault(d => d.Id == id);
