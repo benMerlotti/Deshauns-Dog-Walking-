@@ -45,6 +45,17 @@ export const postCity = async (newCity) => {
   return res.json()
 }
 
+export const putDogWalker = async (dogId, walkerId) => {
+  const response = await fetch(`/api/dogs/${dogId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ walkerId }), // Update walkerId with the new walker
+  });
+  return response.json();
+};
+
 export const deleteDog = async (id) => {
   const res = await fetch(`/api/dogs/${id}`, {
     method: "DELETE"

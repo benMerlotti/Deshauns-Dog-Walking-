@@ -132,6 +132,21 @@ app.MapPost("/api/cities", (City city) =>
     });
 });
 
+app.MapPut("/api/dogs/{id}", (int id, Dog updatedDog) =>
+{
+    Dog dogToUpdate = dogs.FirstOrDefault(d => d.Id == id);
+
+    if (dogToUpdate is null)
+    {
+        return Results.NotFound("Dog not found");
+    }
+
+    dogToUpdate.WalkerId = updatedDog.WalkerId;
+
+    return Results.Ok(dogToUpdate);
+
+});
+
 app.MapDelete("/api/dogs/{id}", (int id) =>
 {
     Dog dog = dogs.FirstOrDefault(d => d.Id == id);
